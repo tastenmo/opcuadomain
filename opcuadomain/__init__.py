@@ -1,0 +1,1 @@
+from opcuadomain.opcua import setup

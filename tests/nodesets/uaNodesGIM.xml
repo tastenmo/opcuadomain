@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet LastModified="2023-09-29T12:08:53.197Z" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd" xmlns:si="http://www.siemens.com/OPCUA/2017/SimaticNodeSetExtensions">
+    <NamespaceUris>
+        <Uri>urn:open62541.server.application</Uri>
+        <Uri>url:gim</Uri>
+    </NamespaceUris>
+    <Models>
+        <Model ModelUri="urn:open62541.server.application">
+            <RequiredModel ModelUri="http://opcfoundation.org/UA/"/>
+            <RequiredModel ModelUri="url:gim"/>
+        </Model>
+        <Model ModelUri="url:gim">
+            <RequiredModel ModelUri="http://opcfoundation.org/UA/"/>
+            <RequiredModel ModelUri="urn:open62541.server.application"/>
+        </Model>
+    </Models>
+    <Aliases/>
+    <Extensions>
+        <Extension>
+            <si:Generator Product="SiOME" Edition="Standard" Version="2.7.2"/>
+        </Extension>
+        <Extension>
+            <si:GeneratorExtension Hash="6d15dbd047c4ef62c3ee91543895bbd6"/>
+        </Extension>
+    </Extensions>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50510" BrowseName="2:Name" ParentNodeId="ns=2;s=SystemConfigDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Name</DisplayName>
+        <Description>Name</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50234" BrowseName="2:Version" ParentNodeId="ns=2;s=SystemConfigDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Version</DisplayName>
+        <Description>Version</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50235" BrowseName="2:ChannelCount" ParentNodeId="ns=2;s=SystemConfigDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelCount</DisplayName>
+        <Description>ChannelCount</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50236" BrowseName="2:GloveCount" ParentNodeId="ns=2;s=SystemConfigDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>GloveCount</DisplayName>
+        <Description>GloveCount</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50237" BrowseName="2:Status_str" ParentNodeId="ns=2;s=SystemConfigDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Status_str</DisplayName>
+        <Description>Status_str</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50238" BrowseName="2:Status" ParentNodeId="ns=2;s=SystemConfigDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Status</DisplayName>
+        <Description>Status</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50240" BrowseName="2:ConnectionState_str" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ConnectionState_str</DisplayName>
+        <Description>ConnectionState_str</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50241" BrowseName="2:ConnectionState" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ConnectionState</DisplayName>
+        <Description>ConnectionState</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50242" BrowseName="2:Host" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Host</DisplayName>
+        <Description>Host</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50243" BrowseName="2:Port" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Port</DisplayName>
+        <Description>Port</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50244" BrowseName="2:ChannelState_str" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelState_str</DisplayName>
+        <Description>ChannelState_str</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50245" BrowseName="2:ChannelState" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelState</DisplayName>
+        <Description>ChannelState</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50246" BrowseName="2:Configuration" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Configuration</DisplayName>
+        <Description>Configuration</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50247" BrowseName="2:Revision" ParentNodeId="ns=2;s=SensorChannelDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Revision</DisplayName>
+        <Description>Revision</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50249" BrowseName="2:State_str" ParentNodeId="ns=2;s=GloveDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State_str</DisplayName>
+        <Description>State_str</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50250" BrowseName="2:State" ParentNodeId="ns=2;s=GloveDataType" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State</DisplayName>
+        <Description>State</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50251" BrowseName="2:Start time" ParentNodeId="ns=2;s=GloveDataType" UserAccessLevel="3" AccessLevel="3" SymbolicName="Start_time">
+        <DisplayName>Start time</DisplayName>
+        <Description>Start time</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=1;i=50252" BrowseName="2:End time" ParentNodeId="ns=2;s=GloveDataType" UserAccessLevel="3" AccessLevel="3" SymbolicName="End_time">
+        <DisplayName>End time</DisplayName>
+        <Description>End time</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=1;i=50253" BrowseName="2:Point count" ParentNodeId="ns=2;s=GloveDataType" UserAccessLevel="3" AccessLevel="3" SymbolicName="Point_count">
+        <DisplayName>Point count</DisplayName>
+        <Description>Point count</Description>
+        <References>
+            <Reference ReferenceType="i=40">i=63</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+        </References>
+    </UAVariable>
+    <UAObject NodeId="ns=2;s=Isolator" BrowseName="Isolator" ParentNodeId="i=85">
+        <DisplayName>Isolator</DisplayName>
+        <Description>Isolator</Description>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">i=61</Reference>
+        </References>
+    </UAObject>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;s=BatchNo" BrowseName="2:BatchNo" ParentNodeId="ns=2;s=Isolator" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>BatchNo</DisplayName>
+        <Description>BatchNo</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;s=Isolator</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;s=Operator" BrowseName="2:Operator" ParentNodeId="ns=2;s=Isolator" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Operator</DisplayName>
+        <Description>Operator</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;s=Isolator</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=6" ValueRank="-2" NodeId="ns=2;s=Mode" BrowseName="2:Mode" ParentNodeId="ns=2;s=Isolator" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Mode</DisplayName>
+        <Description>Mode</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;s=Isolator</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAObject NodeId="ns=2;i=50510" BrowseName="AllChannels" ParentNodeId="i=85">
+        <DisplayName>AllChannels</DisplayName>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">ns=2;s=SystemConfigDataType</Reference>
+        </References>
+    </UAObject>
+    <UAObjectType NodeId="ns=2;s=SystemConfigDataType" BrowseName="2:SystemConfigDataType">
+        <DisplayName>SystemConfigDataType</DisplayName>
+        <References>
+            <Reference ReferenceType="i=45" IsForward="false">i=58</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50510</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50234</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50235</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50236</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50237</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50238</Reference>
+        </References>
+    </UAObjectType>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50259" BrowseName="2:Name" ParentNodeId="ns=2;i=50510" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Name</DisplayName>
+        <Description>Name</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50510</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50260" BrowseName="2:Version" ParentNodeId="ns=2;i=50510" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Version</DisplayName>
+        <Description>Version</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50510</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50261" BrowseName="2:ChannelCount" ParentNodeId="ns=2;i=50510" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelCount</DisplayName>
+        <Description>ChannelCount</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50510</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50262" BrowseName="2:GloveCount" ParentNodeId="ns=2;i=50510" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>GloveCount</DisplayName>
+        <Description>GloveCount</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50510</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50263" BrowseName="2:Status_str" ParentNodeId="ns=2;i=50510" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Status_str</DisplayName>
+        <Description>Status_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50510</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50264" BrowseName="2:Status" ParentNodeId="ns=2;i=50510" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Status</DisplayName>
+        <Description>Status</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50510</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAObject NodeId="ns=2;i=50265" BrowseName="Sensor7a" ParentNodeId="i=85">
+        <DisplayName>Sensor7a</DisplayName>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">ns=2;s=SensorChannelDataType</Reference>
+        </References>
+    </UAObject>
+    <UAObjectType NodeId="ns=2;s=SensorChannelDataType" BrowseName="2:SensorChannelDataType">
+        <DisplayName>SensorChannelDataType</DisplayName>
+        <References>
+            <Reference ReferenceType="i=45" IsForward="false">i=58</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50240</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50241</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50242</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50243</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50244</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50245</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50246</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50247</Reference>
+        </References>
+    </UAObjectType>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50266" BrowseName="2:ConnectionState_str" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ConnectionState_str</DisplayName>
+        <Description>ConnectionState_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50267" BrowseName="2:ConnectionState" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ConnectionState</DisplayName>
+        <Description>ConnectionState</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50268" BrowseName="2:Host" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Host</DisplayName>
+        <Description>Host</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50269" BrowseName="2:Port" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Port</DisplayName>
+        <Description>Port</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50270" BrowseName="2:ChannelState_str" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelState_str</DisplayName>
+        <Description>ChannelState_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50271" BrowseName="2:ChannelState" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelState</DisplayName>
+        <Description>ChannelState</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50272" BrowseName="2:Configuration" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Configuration</DisplayName>
+        <Description>Configuration</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50273" BrowseName="2:Revision" ParentNodeId="ns=2;i=50265" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Revision</DisplayName>
+        <Description>Revision</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50265</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAObject NodeId="ns=2;i=50274" BrowseName="Sensor8b" ParentNodeId="i=85">
+        <DisplayName>Sensor8b</DisplayName>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">ns=2;s=SensorChannelDataType</Reference>
+        </References>
+    </UAObject>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50275" BrowseName="2:ConnectionState_str" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ConnectionState_str</DisplayName>
+        <Description>ConnectionState_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50276" BrowseName="2:ConnectionState" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ConnectionState</DisplayName>
+        <Description>ConnectionState</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50277" BrowseName="2:Host" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Host</DisplayName>
+        <Description>Host</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50278" BrowseName="2:Port" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Port</DisplayName>
+        <Description>Port</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50279" BrowseName="2:ChannelState_str" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelState_str</DisplayName>
+        <Description>ChannelState_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50280" BrowseName="2:ChannelState" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>ChannelState</DisplayName>
+        <Description>ChannelState</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50281" BrowseName="2:Configuration" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Configuration</DisplayName>
+        <Description>Configuration</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50282" BrowseName="2:Revision" ParentNodeId="ns=2;i=50274" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>Revision</DisplayName>
+        <Description>Revision</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50274</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAObject SymbolicName="Glove8_1" NodeId="ns=2;i=50283" BrowseName="Glove8.1" ParentNodeId="i=85">
+        <DisplayName>Glove8.1</DisplayName>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">ns=2;s=GloveDataType</Reference>
+        </References>
+    </UAObject>
+    <UAObjectType NodeId="ns=2;s=GloveDataType" BrowseName="2:GloveDataType">
+        <DisplayName>GloveDataType</DisplayName>
+        <References>
+            <Reference ReferenceType="i=45" IsForward="false">i=58</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50249</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50250</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50251</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50252</Reference>
+            <Reference ReferenceType="i=47">ns=1;i=50253</Reference>
+        </References>
+    </UAObjectType>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50284" BrowseName="2:State_str" ParentNodeId="ns=2;i=50283" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State_str</DisplayName>
+        <Description>State_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50283</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50285" BrowseName="2:State" ParentNodeId="ns=2;i=50283" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State</DisplayName>
+        <Description>State</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50283</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50286" BrowseName="2:Start time" ParentNodeId="ns=2;i=50283" UserAccessLevel="3" AccessLevel="3" SymbolicName="Start_time">
+        <DisplayName>Start time</DisplayName>
+        <Description>Start time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50283</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50287" BrowseName="2:End time" ParentNodeId="ns=2;i=50283" UserAccessLevel="3" AccessLevel="3" SymbolicName="End_time">
+        <DisplayName>End time</DisplayName>
+        <Description>End time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50283</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50288" BrowseName="2:Point count" ParentNodeId="ns=2;i=50283" UserAccessLevel="3" AccessLevel="3" SymbolicName="Point_count">
+        <DisplayName>Point count</DisplayName>
+        <Description>Point count</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50283</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAObject SymbolicName="Glove8_2" NodeId="ns=2;i=50289" BrowseName="Glove8.2" ParentNodeId="i=85">
+        <DisplayName>Glove8.2</DisplayName>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">ns=2;s=GloveDataType</Reference>
+        </References>
+    </UAObject>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50290" BrowseName="2:State_str" ParentNodeId="ns=2;i=50289" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State_str</DisplayName>
+        <Description>State_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50289</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50291" BrowseName="2:State" ParentNodeId="ns=2;i=50289" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State</DisplayName>
+        <Description>State</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50289</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50292" BrowseName="2:Start time" ParentNodeId="ns=2;i=50289" UserAccessLevel="3" AccessLevel="3" SymbolicName="Start_time">
+        <DisplayName>Start time</DisplayName>
+        <Description>Start time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50289</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50293" BrowseName="2:End time" ParentNodeId="ns=2;i=50289" UserAccessLevel="3" AccessLevel="3" SymbolicName="End_time">
+        <DisplayName>End time</DisplayName>
+        <Description>End time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50289</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50294" BrowseName="2:Point count" ParentNodeId="ns=2;i=50289" UserAccessLevel="3" AccessLevel="3" SymbolicName="Point_count">
+        <DisplayName>Point count</DisplayName>
+        <Description>Point count</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50289</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAObject SymbolicName="Glove8_3" NodeId="ns=2;i=50295" BrowseName="Glove8.3" ParentNodeId="i=85">
+        <DisplayName>Glove8.3</DisplayName>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">ns=2;s=GloveDataType</Reference>
+        </References>
+    </UAObject>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50296" BrowseName="2:State_str" ParentNodeId="ns=2;i=50295" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State_str</DisplayName>
+        <Description>State_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50295</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50297" BrowseName="2:State" ParentNodeId="ns=2;i=50295" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State</DisplayName>
+        <Description>State</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50295</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50298" BrowseName="2:Start time" ParentNodeId="ns=2;i=50295" UserAccessLevel="3" AccessLevel="3" SymbolicName="Start_time">
+        <DisplayName>Start time</DisplayName>
+        <Description>Start time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50295</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50299" BrowseName="2:End time" ParentNodeId="ns=2;i=50295" UserAccessLevel="3" AccessLevel="3" SymbolicName="End_time">
+        <DisplayName>End time</DisplayName>
+        <Description>End time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50295</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50300" BrowseName="2:Point count" ParentNodeId="ns=2;i=50295" UserAccessLevel="3" AccessLevel="3" SymbolicName="Point_count">
+        <DisplayName>Point count</DisplayName>
+        <Description>Point count</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50295</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAObject SymbolicName="Glove8_4" NodeId="ns=2;i=50301" BrowseName="Glove8.4" ParentNodeId="i=85">
+        <DisplayName>Glove8.4</DisplayName>
+        <References>
+            <Reference ReferenceType="i=35" IsForward="false">i=85</Reference>
+            <Reference ReferenceType="i=40">ns=2;s=GloveDataType</Reference>
+        </References>
+    </UAObject>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50302" BrowseName="2:State_str" ParentNodeId="ns=2;i=50301" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State_str</DisplayName>
+        <Description>State_str</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50301</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50303" BrowseName="2:State" ParentNodeId="ns=2;i=50301" UserAccessLevel="3" AccessLevel="3">
+        <DisplayName>State</DisplayName>
+        <Description>State</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50301</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50304" BrowseName="2:Start time" ParentNodeId="ns=2;i=50301" UserAccessLevel="3" AccessLevel="3" SymbolicName="Start_time">
+        <DisplayName>Start time</DisplayName>
+        <Description>Start time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50301</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=12" ValueRank="-2" NodeId="ns=2;i=50305" BrowseName="2:End time" ParentNodeId="ns=2;i=50301" UserAccessLevel="3" AccessLevel="3" SymbolicName="End_time">
+        <DisplayName>End time</DisplayName>
+        <Description>End time</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50301</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+    <UAVariable DataType="i=7" ValueRank="-2" NodeId="ns=2;i=50306" BrowseName="2:Point count" ParentNodeId="ns=2;i=50301" UserAccessLevel="3" AccessLevel="3" SymbolicName="Point_count">
+        <DisplayName>Point count</DisplayName>
+        <Description>Point count</Description>
+        <References>
+            <Reference ReferenceType="i=47" IsForward="false">ns=2;i=50301</Reference>
+            <Reference ReferenceType="i=37">i=78</Reference>
+            <Reference ReferenceType="i=40">i=63</Reference>
+        </References>
+    </UAVariable>
+</UANodeSet>

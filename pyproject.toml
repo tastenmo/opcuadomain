@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "opcuadomain"
+version = "0.1.0"
+description = "Sphinx domain for documenting OPC-UA nodesets"
+authors = ["heubuchm <martin.heubuch@escad.de>"]
+license = "MIT"
+readme = "README.md"
+
+packages = [
+    {include = "opcuadomain"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Sphinx = "^7.2.6"
+asyncua = "^1"
+docutils = "^0.20.1"
+matplotlib = "^3.5.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
