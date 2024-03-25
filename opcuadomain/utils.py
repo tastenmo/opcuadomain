@@ -63,6 +63,9 @@ INTERNALS = [
     "constraints_results",
     "arch",
     "target_id",
+    "ua_attributes",
+    "ua_references",
+
 ]
 
 MONTH_NAMES = [

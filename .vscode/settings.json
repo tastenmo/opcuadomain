@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/tests/doc_tests/doc_basic/_build/index.html"
+    "livePreview.defaultPreviewPath": "/tests/doc_tests/doc_basic/_build/index.html",
+    "esbonio.sphinx.confDir": ""
 }

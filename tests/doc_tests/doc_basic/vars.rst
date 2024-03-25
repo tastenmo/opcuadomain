@@ -3,9 +3,7 @@ Variables:
 
 This are the vars.
 
-.. opcua:uavariable:: 2:BatchNo
 
-
-.. opcua:uavariable:: 2:Mode
+.. opcua:uaobject:: 3:WDS_APL781_01
 
 

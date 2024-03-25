@@ -8,7 +8,7 @@
             "name": "OPC-UA Domain",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/.venv/bin/sphinx-build",
+            "program": "${workspaceFolder}/.venv/Scripts/sphinx-build.exe",
             "args": ["-v", "./tests/doc_tests/doc_basic/", "./tests/doc_tests/_build", "-T", "-a", "-E"],
             "console": "integratedTerminal",
             "justMyCode": false

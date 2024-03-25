@@ -20,6 +20,8 @@ from jinja2 import BaseLoader, Environment
 from sphinx.application import Sphinx
 from sphinx.environment.collectors.asset import DownloadFileCollector, ImageCollector
 
+from asyncua.common.xmlparser import RefStruct
+
 #from sphinx_needs.debug import measure_time
 from opcuadomain.utils import INTERNALS, match_string_link, unwrap
 
@@ -293,6 +295,11 @@ class LayoutHandler:
             "link": self.link,
             "collapse_button": self.collapse_button,
             "permalink": self.permalink,
+            "ua_attribute": self.ua_attribute,
+            "ua_attributes": self.ua_attributes,
+            "ua_reference": self.ua_reference,
+            "ua_references": self.ua_references,
+            
         }
 
         # Prepare string_links dict, so that regex and templates get not recompiled too often.
@@ -704,6 +711,209 @@ class LayoutHandler:
                 incoming_line += self._parse(incoming_label)
                 incoming_line += self.meta_links(link_type["option"], incoming=True)
                 data_container.append(incoming_line)
+
+        return data_container
+    
+    def ua_attribute(self, name: str, prefix: Optional[str] = None, show_empty: bool = False):
+
+        data_container = nodes.inline(classes=["needs_" + name])
+        if prefix:
+            prefix_node = self._parse(prefix)
+            label_node = nodes.inline(classes=["needs_label"])
+            label_node += prefix_node
+            data_container.append(label_node)
+        try:
+            data = self.need["ua_attributes"][name]
+        except KeyError:
+            data = ""
+
+        if data is None and not show_empty:
+            return []
+        elif data is None and show_empty:
+            data = ""
+
+        if isinstance(data, str):
+            if len(data) == 0 and not show_empty:
+                return []
+            # data_node = nodes.inline(classes=["needs_data"])
+            # data_node.append(nodes.Text(data)
+            # data_container.append(data_node)
+            needs_string_links_option: List[str] = []
+            for v in self.app.config.needs_string_links.values():
+                needs_string_links_option.extend(v["options"])
+
+            if name in needs_string_links_option:
+                data = re.split(r",|;", data)
+                data = [i.strip() for i in data if len(i) != 0]
+
+            matching_link_confs = []
+            for link_conf in self.string_links.values():
+                if name in link_conf["options"]:
+                    matching_link_confs.append(link_conf)
+
+            data_node = nodes.inline(classes=["needs_data"])
+            for index, datum in enumerate(data):
+                if matching_link_confs:
+                    data_node += match_string_link(
+                        text_item=datum,
+                        data=datum,
+                        need_key=name,
+                        matching_link_confs=matching_link_confs,
+                        render_context=self.app.config.needs_render_context,
+                    )
+                else:
+                    # Normal text handling
+                    ref_item = nodes.Text(datum)
+                    data_node += ref_item
+
+                if (isinstance(data, list) and index + 1 < len(data)) or index + 1 < len([data]):
+                    data_node += nodes.emphasis("; ", "; ")
+
+            data_container.append(data_node)
+
+        elif isinstance(data, list):
+            if len(data) == 0 and not show_empty:
+                return []
+            list_container = nodes.inline(classes=["needs_data_container"])
+            for index, element in enumerate(data):
+                if index > 0:
+                    spacer = nodes.inline(classes=["needs_spacer"])
+                    spacer += nodes.Text(", ")
+                    list_container += spacer
+
+                inline = nodes.inline(classes=["needs_data"])
+                inline += nodes.Text(element)
+                list_container += inline
+            data_container += list_container
+        else:
+            data_container.append(nodes.Text(data))
+
+        return data_container
+    
+    def ua_attributes(
+        self,
+        prefix: str = "",
+        postfix: str = "",
+        exclude=None,
+        no_links: bool = False,
+        defaults: bool = True,
+        show_empty: bool = False,
+    ):
+    
+        default_excludes = INTERNALS.copy()
+
+        if exclude is None or not isinstance(exclude, list):
+            if defaults:
+                exclude = default_excludes
+            else:
+                exclude = []
+        elif defaults:
+            exclude += default_excludes
+
+        if no_links:
+            link_names = [x["option"] for x in self.app.config.needs_extra_links]
+            link_names += [x["option"] + "_back" for x in self.app.config.needs_extra_links]
+            exclude += link_names
+        data_container = nodes.inline()
+        for data in self.need["ua_attributes"].keys():
+            if data in exclude:
+                continue
+
+            data_line = nodes.line()
+            label = prefix + f"{data}:" + postfix + " "
+            result = self.ua_attribute(data, label, show_empty)
+            if not (show_empty or result):
+                continue
+            if isinstance(result, list):
+                data_line += result
+            else:
+                data_line.append(result)
+
+            data_container.append(data_line)
+
+        return data_container
+
+    def ua_reference(self, data: RefStruct, prefix: Optional[str] = None, show_empty: bool = False):
+
+        data_container = nodes.inline()
+        if prefix:
+            prefix_node = self._parse(prefix)
+            label_node = nodes.inline(classes=["needs_label"])
+            label_node += prefix_node
+            data_container.append(label_node)
+        #try:
+        #    data = self.need["ua_attributes"][name]
+        #except KeyError:
+        #    data = ""
+        ref_type = data.reftype
+
+        if data.reftype is None and not show_empty:
+            return []
+
+        list_container = nodes.inline(classes=["needs_data_container"])
+
+        forward = nodes.inline(classes=["needs_data"])
+        forward += nodes.Text(str(data.forward))
+        list_container += forward
+        
+        spacer = nodes.inline(classes=["needs_spacer"])
+        spacer += nodes.Text(", ")
+        list_container += spacer
+
+        reftype = nodes.inline(classes=["needs_data"])
+        reftype += nodes.Text(str(data.reftype))
+        list_container += reftype
+
+        spacer = nodes.inline(classes=["needs_spacer"])
+        spacer += nodes.Text(", ")
+        list_container += spacer
+
+        target = nodes.inline(classes=["needs_data"])
+        target += nodes.Text(str(data.target))
+        list_container += target
+
+        return data_container
+    
+    def ua_references(
+        self,
+        prefix: str = "",
+        postfix: str = "",
+        exclude=None,
+        no_links: bool = False,
+        defaults: bool = True,
+        show_empty: bool = False,
+    ):
+    
+        default_excludes = INTERNALS.copy()
+
+        if exclude is None or not isinstance(exclude, list):
+            if defaults:
+                exclude = default_excludes
+            else:
+                exclude = []
+        elif defaults:
+            exclude += default_excludes
+
+        if no_links:
+            link_names = [x["option"] for x in self.app.config.needs_extra_links]
+            link_names += [x["option"] + "_back" for x in self.app.config.needs_extra_links]
+            exclude += link_names
+        data_container = nodes.inline()
+
+        for data in self.need["ua_references"]:
+            if data.reftype in exclude:
+                continue
+            data_line = nodes.line()
+            label = ""
+            result = self.ua_reference(data, label, show_empty)
+            if not (show_empty or result):
+                continue
+            if isinstance(result, list):
+                data_line += result
+            else:
+                data_line.append(result)
+
+            data_container.append(data_line)
 
         return data_container
 

@@ -39,6 +39,21 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+needs_string_links = {
+    "config_link": {
+        "regex": r"^(?P<value>\w+)$",
+        "link_url": 'https://sphinxcontrib-needs.readthedocs.io/en/latest/configuration.html#{{value | replace("_", "-")}}',
+        "link_name": 'Sphinx-Needs docs for {{value | replace("_", "-") }}',
+        "options": ["config"],
+    },
+    "github_link": {
+        "regex": r"^(?P<value>\w+)$",
+        "link_url": "https://github.com/useblocks/sphinxcontrib-needs/issues/{{value}}",
+        "link_name": "GitHub #{{value}}",
+        "options": ["github"],
+    },
+}
+
 
 # -- Options for HTML output -------------------------------------------------
 

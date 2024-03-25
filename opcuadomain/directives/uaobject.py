@@ -24,10 +24,10 @@ from opcuadomain.logging import get_logger
 
 logger = get_logger(__name__)
 
-class UAVariableDirective(SphinxDirective):
-    """A custom directive that describes a OPC-UA variable."""
+class UAObjectDirective(SphinxDirective):
+    """A custom directive that describes a OPC-UA object."""
 
-    has_content = True
+    has_content = False
     required_arguments = 1
     option_spec = OPCUA_DEFAULT_OPTIONS
 
@@ -54,23 +54,15 @@ class UAVariableDirective(SphinxDirective):
 
         opcua = self.env.get_domain('opcua')
 
-        ua_node = opcua.find_uanode(self.arguments[0], "UAVariable")
+        ua_node = opcua.find_uanode(self.arguments[0], "UAObject")
 
         if ua_node is None:
-            raise ReferenceError(f"Could not find UAVariable {self.arguments[0]}")
+            raise ReferenceError(f"Could not find UAObject {self.arguments[0]}")
         
         hide = "hide" in self.options
-        content = "\n".join(self.content)
-        status = self.options.get("status")
-        if status:
-            status = status.replace(
-                "__", ""
-            )  # Support for multiline options, which must use __ for empty lines
-
-        tags = self.options.get("tags", "")
-
         style = self.options.get("style")
         layout = self.options.get("layout", "")
+
 
         ua_nodes = add_uanode(
             env.app,
@@ -78,9 +70,6 @@ class UAVariableDirective(SphinxDirective):
             ua_node,
             self.docname,
             self.lineno,
-            content=content,
-            status=status,
-            tags=tags,
             hide=hide,
             style=style,
             layout=layout,

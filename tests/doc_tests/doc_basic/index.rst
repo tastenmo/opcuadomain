@@ -8,7 +8,7 @@ Welcome to basic test's documentation!
 
 Below are several vars. See the for more details.
 
-.. opcua:uaimport:: ../../nodesets/uaNodesGIM.xml
+.. opcua:uaimport:: ../../nodesets/WDS_Nodeset.xml
    
 
 .. toctree::

@@ -11,6 +11,7 @@ from opcuadomain.logging import get_logger
 from opcuadomain.defaults import LAYOUTS
 
 from directives.uavariable import UAVariableDirective
+from directives.uaobject import UAObjectDirective
 from directives.uaimport import UAImportDirective
 from indices.uavariablesindex import UAVariableIndex
 from indices.uareferencesindex import UAReferenceIndex
@@ -26,7 +27,9 @@ class OpcuaDomain(Domain):
     }
     directives = {
         'uavariable': UAVariableDirective,
+        'uaobject': UAObjectDirective,
         'uaimport': UAImportDirective,
+
     }
     #indices = {
     #    UANodeIndex,
@@ -85,6 +88,13 @@ class OpcuaDomain(Domain):
                 return uanode
         return None
     
+    def find_uanode(self, browse_name, node_type):
+        """Find a UANode by browsename."""
+        for uanode in self.data['UANodes']:
+            if uanode.browsename == browse_name and uanode.nodetype == node_type:
+                return uanode
+        return None
+    
 
 
 def setup(app):
@@ -93,6 +103,7 @@ def setup(app):
     #log.debug("Load Sphinx-Data-Viewer for Sphinx-Needs")
 
     app.add_config_value("needs_extra_links", [], "html")
+    app.add_config_value("needs_string_links", {}, "html")
 
 
     app.add_domain(OpcuaDomain)

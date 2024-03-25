@@ -32,10 +32,9 @@ LAYOUTS = {
         "grid": "simple",
         "layout": {
             "head": [
-                '<<meta("type_name")>>: **<<meta("title")>>** <<meta_id()>>  <<collapse_button("meta", '
-                'collapsed="icon:arrow-down-circle", visible="icon:arrow-right-circle", initial=False)>> '
+                '<<meta("type_name")>>: **<<meta("title")>>** '
             ],
-            "meta": ["<<meta_all(no_links=True)>>", "<<meta_links_all()>>"],
+            "meta": ["<<ua_attributes()>>", "<<ua_references()>>"],
         },
     },
     "clean_l": {"grid": "simple_side_left", "layout": LAYOUT_COMMON_SIDE},
@@ -201,14 +200,11 @@ NEEDFLOW_CONFIG_DEFAULTS = {
 
 TITLE_REGEX = r'([\w]+) as "([\w ]+)"'
 
-
-NEED_DEFAULT_OPTIONS: Dict[str, Any] = {
-    "id": directives.unchanged_required,
+OPCUA_DEFAULT_OPTIONS: Dict[str, Any] = {
     "status": directives.unchanged_required,
     "tags": directives.unchanged_required,
     "links": directives.unchanged_required,
     "collapse": directives.unchanged_required,
-    "delete": directives.unchanged,
     "jinja_content": directives.unchanged,
     "hide": directives.flag,
     "title_from_content": directives.flag,
@@ -223,6 +219,7 @@ NEED_DEFAULT_OPTIONS: Dict[str, Any] = {
     "constraints_passed": directives.unchanged_required,
     "constraints_results": directives.unchanged_required,
 }
+
 
 NEEDEXTEND_NOT_ALLOWED_OPTIONS = ["id"]
 

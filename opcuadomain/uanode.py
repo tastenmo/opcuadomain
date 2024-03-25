@@ -32,10 +32,14 @@ def add_uanode(
     data: NodeData,
     docname: str,
     lineno: int,
+    content: str = "",
+    status: str | None = None,
+    tags: None | str | list[str] = None,
     hide: bool = False,
+    style: None | str = None,
+    layout: None | str = None,
     is_external: bool = False,
-    style=None,
-    layout=None) -> nodes.Node:
+    ) -> nodes.Node:
 
     env = app.env
 
@@ -57,10 +61,23 @@ def add_uanode(
     else:
         doctype = ".rst"
 
+    # get the attributes of the node
+        
+    ua_attributes = {"NodeId": data.nodeid, "NodeClass": data.nodeclass, "BrowseName": data.browsename, "DisplayName": data.displayname, "Description": data.desc, "DataType": data.datatype, "ValueRank": data.rank}
+
+    ua_references = data.refs    
+
     ua_info = {
         "docname": docname,
         "doctype": doctype,
         "lineno": lineno,
+        "type_name": data.nodetype,
+        "status": status,
+        "tags": tags,
+        "title": data.displayname,
+        "ua_attributes": ua_attributes,
+        "ua_references": ua_references,
+        "content": content,
         "hide": hide,
         "is_external": is_external,
         "style": style,
@@ -84,13 +101,13 @@ def add_uanode(
 
     node_ua.line = ua_info["lineno"]
 
-    node_ua_desc = _render_template(data.desc, docname, lineno, state)
+    node_ua_content = _render_template(content, docname, lineno, state)
 
-    ua_parts = find_parts(node_ua_desc)
+    ua_parts = find_parts(node_ua_content)
 
     update_need_with_parts(env, ua_info, ua_parts)
 
-    node_ua += node_ua_desc.children
+    node_ua += node_ua_content.children
 
     ua_info["content_id"] = node_ua["ids"][0]
 
@@ -110,7 +127,6 @@ def _render_template(content: str, docname: str, lineno: int, state: RSTState) -
     node_ua_content.document = state.document
     _nested_parse_with_titles(state, rst, node_ua_content)
     return node_ua_content
-
 
 def _nested_parse_with_titles(state: Any, content: StringList, node: nodes.Node,
                              content_offset: int = 0) -> str:
