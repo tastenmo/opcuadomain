@@ -790,6 +790,73 @@ class LayoutHandler:
 
         return data_container
     
+    def get_attr_table_head(self, row_cells):
+        row = nodes.row(classes=["need", "meta"])
+        for cell in row_cells:
+            entry = nodes.entry(classes=["needs_thead"])
+            row += entry
+            entry += nodes.Text(str(cell))
+        return row
+    
+    def get_attr_table_row(self, name: str, prefix: Optional[str] = None, show_empty: bool = False):
+
+        row = nodes.row(classes=["need"])
+        if prefix:
+            prefix_node = self._parse(prefix)
+            label_node = nodes.entry(classes=["needs_label"])
+            label_node += prefix_node
+            row.append(label_node)
+        try:
+            data = self.need["ua_attributes"][name]
+        except KeyError:
+            data = ""
+
+        if data is None and not show_empty:
+            return []
+        elif data is None and show_empty:
+            data = ""
+
+        if isinstance(data, str):
+            if len(data) == 0 and not show_empty:
+                return []
+            # data_node = nodes.inline(classes=["needs_data"])
+            # data_node.append(nodes.Text(data)
+            # data_container.append(data_node)
+            needs_string_links_option: List[str] = []
+            for v in self.app.config.needs_string_links.values():
+                needs_string_links_option.extend(v["options"])
+
+            if name in needs_string_links_option:
+                data = re.split(r",|;", data)
+                data = [i.strip() for i in data if len(i) != 0]
+
+            matching_link_confs = []
+            for link_conf in self.string_links.values():
+                if name in link_conf["options"]:
+                    matching_link_confs.append(link_conf)
+
+            data_node = nodes.entry(classes=["needs_data"])
+            for index, datum in enumerate(data):
+                if matching_link_confs:
+                    data_node += match_string_link(
+                        text_item=datum,
+                        data=datum,
+                        need_key=name,
+                        matching_link_confs=matching_link_confs,
+                        render_context=self.app.config.needs_render_context,
+                    )
+                else:
+                    # Normal text handling
+                    ref_item = nodes.Text(datum)
+                    data_node += ref_item
+
+                if (isinstance(data, list) and index + 1 < len(data)) or index + 1 < len([data]):
+                    data_node += nodes.emphasis("; ", "; ")
+
+            row.append(data_node)
+
+        return row
+    
     def ua_attributes(
         self,
         prefix: str = "",
@@ -814,25 +881,34 @@ class LayoutHandler:
             link_names = [x["option"] for x in self.app.config.needs_extra_links]
             link_names += [x["option"] + "_back" for x in self.app.config.needs_extra_links]
             exclude += link_names
-        data_container = nodes.inline()
+
+        
+        attr_table = nodes.table()
+
+        attr_tgroup = nodes.tgroup(cols=2)
+        attr_table += attr_tgroup
+
+        attr_tgroup += nodes.colspec(colwidth=1)
+        attr_tgroup += nodes.colspec(colwidth=2)
+
+        attr_thead = nodes.thead()
+        attr_tgroup += attr_thead
+        attr_thead += self.get_attr_table_head(('Attribute', 'Value'))
+        attr_tbody = nodes.tbody()
+        attr_tgroup += attr_tbody
+        
+
+
         for data in self.need["ua_attributes"].keys():
             if data in exclude:
                 continue
-
-            data_line = nodes.line()
             label = prefix + f"{data}:" + postfix + " "
-            result = self.ua_attribute(data, label, show_empty)
-            if not (show_empty or result):
-                continue
-            if isinstance(result, list):
-                data_line += result
-            else:
-                data_line.append(result)
+            result = self.get_attr_table_row(data, label, show_empty)
+            if result:
+                attr_tbody.append(result)
 
-            data_container.append(data_line)
-
-        return data_container
-
+        return [attr_table]
+    
     def ua_reference(self, data: RefStruct, prefix: Optional[str] = None, show_empty: bool = False):
 
         data_container = nodes.inline()
@@ -871,6 +947,8 @@ class LayoutHandler:
         target = nodes.inline(classes=["needs_data"])
         target += nodes.Text(str(data.target))
         list_container += target
+
+        data_container += list_container
 
         return data_container
     
