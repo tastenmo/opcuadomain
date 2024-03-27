@@ -13,6 +13,7 @@ from sphinx.environment import BuildEnvironment
 from sphinx.util.nodes import nested_parse_with_titles
 
 from asyncua.common.xmlparser import NodeData
+from asyncua.ua.object_ids import ObjectIds
 
 from opcuadomain.nodes import uanodes
 
@@ -61,22 +62,106 @@ def add_uanode(
     else:
         doctype = ".rst"
 
-    # get the attributes of the node
-        
-    ua_attributes = {"NodeId": data.nodeid, "NodeClass": data.nodeclass, "BrowseName": data.browsename, "DisplayName": data.displayname, "Description": data.desc, "DataType": data.datatype, "ValueRank": data.rank}
+    # build the basic attributes of the node
+    basic_attribs = {"NodeId": data.nodeid, "NodeClass": data.nodetype, "BrowseName": data.browsename}
 
-    ua_references = data.refs    
+    if data.parent:
+        basic_attribs["ParentNodeId"] = data.parent
+        # Try to find the parent browse name
+        parent_node = opcua.find_uanode_by_id(data.parent)
+        if parent_node:
+            basic_attribs["ParentBrowseName"] = parent_node.browsename
+
+    DisplayName = data.browsename
+    # This could be localized, but is not supported at the moment by SIOME and asyncua
+    if isinstance(data.displayname, str):
+        DisplayName = data.displayname
+
+    # This could be localized, but is not supported at the moment by SIOME and asyncua
+        
+    # We prefix the content with the description, if available
+    if isinstance(data.desc, str):
+        content = data.desc + "\n" + content
+
+    # Additional attributes are dependent on the nodetype
+    additional_attribs = {}
+    if data.datatype:
+        additional_attribs["DataType"] = data.datatype
+
+    if data.rank > 0:    
+        additional_attribs["ValueRank"] = data.rank
+        if data.dimensions:
+            additional_attribs["ArrayDimensions"] = data.dimensions
+
+    childs = opcua.find_child_nodes(data.nodeid)
+
+
+    # Hierarchical References
+    # [forward, ReferenceType, TargetId, NodeClass, Name, TypeDefinition, ModellingRule, DataType]
+    hierarchical_refs = []
+    for ref in data.refs:
+        if ref.reftype == "HasSubtype" or ref.reftype == "Organizes" or ref.reftype == "HasComponent":
+            hierarchical_refs.append({'Forward':ref.forward, 'ReferenceType':ref.reftype, 'TargetId': ref.target, 'NodeClass': "", 'Name': opcua.get_target_name(ref.target), 'TypeDefinition': "--", 'ModellingRule': "--", 'DataType': "--"})
+
+    for child in childs:
+        ModellingRule = ""
+        TypeDefinition = ""
+        DataType = ""
+        if child.datatype:
+            if re.match(r'i=|ns=', child.datatype):
+                DataType = opcua.get_target_name(child.datatype)
+            else:
+                DataType = child.datatype
+
+        # first find the non-hierarchical references
+        for ref in child.refs:
+            if ref.reftype == "HasModellingRule":
+                ModellingRule = opcua.get_target_name(ref.target)
+                #shorten the name
+                m = re.match(r'ModellingRule_(.+)', ModellingRule)
+                if m:
+                    ModellingRule = m.group(1)
+            if ref.reftype == "HasTypeDefinition":
+                TypeDefinition = opcua.get_target_name(ref.target)
+
+        for ref in child.refs:
+            if ref.reftype == "HasComponent" or ref.reftype == "HasProperty":
+                hierarchical_refs.append({'Forward': not ref.forward, 'ReferenceType':ref.reftype, 'TargetId': child.nodeid,  'NodeClass':child.nodetype, 'Name': child.browsename, 'TypeDefinition': TypeDefinition, 'ModellingRule': ModellingRule, 'DataType': DataType})
+    #hierarchical_refs = opcua.find_references_by_target(data.nodeid)
+                
+    non_hierarchical_refs = []
+    for ref in data.refs:
+        if ref.reftype == "HasModellingRule":
+            Target = opcua.get_target_name(ref.target)
+            #shorten the name
+            m = re.match(r'ModellingRule_(.+)', Target)
+            if m:
+                Target = m.group(1)
+            non_hierarchical_refs.append({'Forward':ref.forward, 'ReferenceType':ref.reftype, 'Target': Target, 'Target NodeId': ref.target})
+
+        if ref.reftype == "HasTypeDefinition":
+            Target = opcua.get_target_name(ref.target)
+
+            non_hierarchical_refs.append({'Forward':ref.forward, 'ReferenceType':ref.reftype, 'Target': Target, 'Target NodeId': ref.target})
+
+
+
+
+
+
+
+    #ua_references = data.refs    
 
     ua_info = {
         "docname": docname,
         "doctype": doctype,
         "lineno": lineno,
         "type_name": data.nodetype,
-        "status": status,
-        "tags": tags,
-        "title": data.displayname,
-        "ua_attributes": ua_attributes,
-        "ua_references": ua_references,
+        "title": DisplayName,
+        "ua_attributes": basic_attribs,
+        "ua_additional_attributes": additional_attribs,
+        "ua_hierarchical_refs": hierarchical_refs,
+        "ua_non_hierarchical_refs": non_hierarchical_refs,
         "content": content,
         "hide": hide,
         "is_external": is_external,
@@ -234,6 +319,6 @@ def process_ua_nodes(app: Sphinx, doctree: nodes.document, fromdocname: str) -> 
 
         ua_node = opcua.get_uavariable(node_id)
 
-        layout = "clean"
+        layout = "detailed"
 
         build_need(layout, node, ua_node, app, doctree, fromdocname=fromdocname)

@@ -224,6 +224,7 @@ class LayoutHandler:
                 "func": self._grid_simple,
                 "configs": {"colwidths": [100], "side_left": False, "side_right": False, "footer": False},
             },
+            "detailed": self._grid_detailed,
             "simple_footer": {
                 "func": self._grid_simple,
                 "configs": {"colwidths": [100], "side_left": False, "side_right": False, "footer": True},
@@ -295,11 +296,10 @@ class LayoutHandler:
             "link": self.link,
             "collapse_button": self.collapse_button,
             "permalink": self.permalink,
-            "ua_attribute": self.ua_attribute,
             "ua_attributes": self.ua_attributes,
-            "ua_reference": self.ua_reference,
-            "ua_references": self.ua_references,
-            
+            "ua_additional_attributes": self.ua_additional_attributes,
+            "ua_hierarchical_references": self.ua_hierarchical_references,
+            "ua_non_hierarchical_references": self.ua_non_hierarchical_references,
         }
 
         # Prepare string_links dict, so that regex and templates get not recompiled too often.
@@ -888,12 +888,19 @@ class LayoutHandler:
         attr_tgroup = nodes.tgroup(cols=2)
         attr_table += attr_tgroup
 
-        attr_tgroup += nodes.colspec(colwidth=1)
-        attr_tgroup += nodes.colspec(colwidth=2)
+        attr_tgroup += nodes.colspec(colwidth=30)
+        attr_tgroup += nodes.colspec(colwidth=70)
 
         attr_thead = nodes.thead()
         attr_tgroup += attr_thead
-        attr_thead += self.get_attr_table_head(('Attribute', 'Value'))
+        head_row = nodes.row(classes=["need", "meta"])
+        head_entry = nodes.entry(classes=["needs_thead"], morecols=2)
+        head_entry += nodes.Text("OPC UA Attributes")
+        head_row += head_entry
+        head_row += None
+
+        attr_thead += head_row
+
         attr_tbody = nodes.tbody()
         attr_tgroup += attr_tbody
         
@@ -909,50 +916,7 @@ class LayoutHandler:
 
         return [attr_table]
     
-    def ua_reference(self, data: RefStruct, prefix: Optional[str] = None, show_empty: bool = False):
-
-        data_container = nodes.inline()
-        if prefix:
-            prefix_node = self._parse(prefix)
-            label_node = nodes.inline(classes=["needs_label"])
-            label_node += prefix_node
-            data_container.append(label_node)
-        #try:
-        #    data = self.need["ua_attributes"][name]
-        #except KeyError:
-        #    data = ""
-        ref_type = data.reftype
-
-        if data.reftype is None and not show_empty:
-            return []
-
-        list_container = nodes.inline(classes=["needs_data_container"])
-
-        forward = nodes.inline(classes=["needs_data"])
-        forward += nodes.Text(str(data.forward))
-        list_container += forward
-        
-        spacer = nodes.inline(classes=["needs_spacer"])
-        spacer += nodes.Text(", ")
-        list_container += spacer
-
-        reftype = nodes.inline(classes=["needs_data"])
-        reftype += nodes.Text(str(data.reftype))
-        list_container += reftype
-
-        spacer = nodes.inline(classes=["needs_spacer"])
-        spacer += nodes.Text(", ")
-        list_container += spacer
-
-        target = nodes.inline(classes=["needs_data"])
-        target += nodes.Text(str(data.target))
-        list_container += target
-
-        data_container += list_container
-
-        return data_container
-    
-    def ua_references(
+    def ua_additional_attributes(
         self,
         prefix: str = "",
         postfix: str = "",
@@ -976,24 +940,162 @@ class LayoutHandler:
             link_names = [x["option"] for x in self.app.config.needs_extra_links]
             link_names += [x["option"] + "_back" for x in self.app.config.needs_extra_links]
             exclude += link_names
-        data_container = nodes.inline()
 
-        for data in self.need["ua_references"]:
-            if data.reftype in exclude:
+        
+        attr_table = nodes.table()
+
+        attr_tgroup = nodes.tgroup(cols=2)
+        attr_table += attr_tgroup
+
+        attr_tgroup += nodes.colspec(colwidth=30)
+        attr_tgroup += nodes.colspec(colwidth=70)
+
+        attr_thead = nodes.thead()
+        attr_tgroup += attr_thead
+        head_row = nodes.row(classes=["need", "meta"])
+        head_entry = nodes.entry(classes=["needs_thead"], morecols=2)
+        head_entry += nodes.Text("Additional OPC UA Attributes")
+        head_row += head_entry
+        head_row += None
+
+        attr_thead += head_row
+
+        attr_tbody = nodes.tbody()
+        attr_tgroup += attr_tbody
+        
+
+
+        for data in self.need["ua_additional_attributes"].keys():
+            if data in exclude:
                 continue
-            data_line = nodes.line()
-            label = ""
-            result = self.ua_reference(data, label, show_empty)
-            if not (show_empty or result):
+            label = prefix + f"{data}:" + postfix + " "
+            result = self.get_attr_table_row(data, label, show_empty)
+            if result:
+                attr_tbody.append(result)
+
+        return [attr_table]
+        
+    def get_ref_table_head(self, row_cells):
+        row = nodes.row(classes=["need", "meta"])
+        for cell in row_cells:
+            entry = nodes.entry(classes=["needs_thead"])
+            row += entry
+            entry += nodes.Text(str(cell))
+        return row
+    
+    def get_ref_table_row(self, ref, exclude=None, show_empty: bool = False):
+
+        row = nodes.row(classes=["need"])
+
+        for item in ref:
+            if item in exclude:
                 continue
-            if isinstance(result, list):
-                data_line += result
+            entry = nodes.entry(classes=["needs_data"])
+            row += entry
+            entry += nodes.Text(str(ref[item]))
+
+        return row
+    
+    def ua_hierarchical_references(
+        self,
+        prefix: str = "",
+        postfix: str = "",
+        exclude=None,
+        no_links: bool = False,
+        defaults: bool = True,
+        show_empty: bool = False,
+    ):
+    
+        default_excludes = ["TargetId"]
+
+        if exclude is None or not isinstance(exclude, list):
+            if defaults:
+                exclude = default_excludes
             else:
-                data_line.append(result)
+                exclude = []
+        elif defaults:
+            exclude += default_excludes
 
-            data_container.append(data_line)
+        if no_links:
+            link_names = [x["option"] for x in self.app.config.needs_extra_links]
+            link_names += [x["option"] + "_back" for x in self.app.config.needs_extra_links]
+            exclude += link_names
 
-        return data_container
+        
+        ref_table = nodes.table()
+
+        ref_tgroup = nodes.tgroup(cols=7)
+        ref_table += ref_tgroup
+
+        ref_tgroup += nodes.colspec(colwidth=1)
+        ref_tgroup += nodes.colspec(colwidth=2)
+        ref_tgroup += nodes.colspec(colwidth=1)
+        ref_tgroup += nodes.colspec(colwidth=1)
+        ref_tgroup += nodes.colspec(colwidth=2)
+        ref_tgroup += nodes.colspec(colwidth=2)
+        ref_tgroup += nodes.colspec(colwidth=1)
+
+        ref_thead = nodes.thead()
+        ref_tgroup += ref_thead
+        ref_thead += self.get_ref_table_head(('Forward', 'ReferenceType', 'NodeClass', 'Name', 'TypeDefinition', 'ModellingRule', 'DataType'))
+        ref_tbody = nodes.tbody()
+        ref_tgroup += ref_tbody
+        
+        for data in self.need["ua_hierarchical_refs"]:
+            result = self.get_ref_table_row(data, exclude, show_empty)
+            if result:
+                ref_tbody.append(result)
+
+        return [ref_table]
+
+    def ua_non_hierarchical_references(
+        self,
+        prefix: str = "",
+        postfix: str = "",
+        exclude=None,
+        no_links: bool = False,
+        defaults: bool = True,
+        show_empty: bool = False,
+    ):
+    
+        default_excludes = []
+
+        if exclude is None or not isinstance(exclude, list):
+            if defaults:
+                exclude = default_excludes
+            else:
+                exclude = []
+        elif defaults:
+            exclude += default_excludes
+
+        if no_links:
+            link_names = [x["option"] for x in self.app.config.needs_extra_links]
+            link_names += [x["option"] + "_back" for x in self.app.config.needs_extra_links]
+            exclude += link_names
+
+        
+        ref_table = nodes.table()
+
+        ref_tgroup = nodes.tgroup(cols=4)
+        ref_table += ref_tgroup
+
+        ref_tgroup += nodes.colspec(colwidth=1)
+        ref_tgroup += nodes.colspec(colwidth=2)
+        ref_tgroup += nodes.colspec(colwidth=2)
+        ref_tgroup += nodes.colspec(colwidth=1)
+
+        ref_thead = nodes.thead()
+        ref_tgroup += ref_thead
+        ref_thead += self.get_ref_table_head(('Forward', 'ReferenceType', 'Target', 'Target NodeId'))
+        ref_tbody = nodes.tbody()
+        ref_tgroup += ref_tbody
+        
+        for data in self.need["ua_non_hierarchical_refs"]:
+            result = self.get_ref_table_row(data, exclude, show_empty)
+            if result:
+                ref_tbody.append(result)
+
+        return [ref_table]
 
     def image(
         self,
@@ -1469,6 +1571,55 @@ class LayoutHandler:
 
         # Construct table
         node_tgroup += self.node_tbody
+
+    def _grid_detailed(self) -> None:
+        node_tgroup = nodes.tgroup(cols=2)
+        self.node_table += node_tgroup
+        node_tgroup +=nodes.colspec(50)
+        node_tgroup +=nodes.colspec(50)
+
+        # HEAD row
+        head_row = nodes.row(classes=["head"])
+        self.node_tbody += head_row
+        # HEAD entry
+        head_entry = nodes.entry(classes=["head_center"], morecols=2)
+        head_entry += self.get_section("head")
+        head_row += head_entry
+        head_row += None
+    
+        # attribute row
+        attr_row = nodes.row(classes=["meta"])
+        self.node_tbody += attr_row
+        # attribute left
+        attr_left_entry = nodes.entry(classes=["meta"])
+        attr_left_entry += self.get_section("attributes_left")
+        attr_row += attr_left_entry
+        # attribute right
+        attr_right_entry = nodes.entry(classes=["meta"])
+        attr_right_entry += self.get_section("attributes_right")
+        attr_row += attr_right_entry
+
+        # reference row
+        ref_row = nodes.row(classes=["meta"])
+        self.node_tbody += ref_row
+        # ref entry
+        ref_entry = nodes.entry(classes=["meta_center"], morecols=2)
+        ref_entry += self.get_section("references")
+        ref_row += ref_entry
+        ref_row += None
+
+
+        # CONTENT row
+        content_row = nodes.row(classes=["content"])
+        self.node_tbody += content_row
+        content_entry = nodes.entry(classes=["content"], morecols=2)
+        content_entry.insert(0, self.node.children)
+        content_row += content_entry
+        content_row += None
+
+        # Construct table
+        node_tgroup += self.node_tbody
+    
 
     def _grid_content(self, colwidths, side_left, side_right, footer):
         """

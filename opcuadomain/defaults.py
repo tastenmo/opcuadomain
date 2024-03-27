@@ -18,6 +18,27 @@ LAYOUT_COMMON_SIDE = {
 }
 
 LAYOUTS = {
+    "detailed": {
+        "grid": "detailed",
+        "layout": {
+            "head": [
+                '<<meta("type_name")>>: **<<meta("title")>>** '
+            ],
+            "attributes_left": [
+                "<<ua_attributes()>>"
+            ],
+            "attributes_right": [
+                "<<ua_additional_attributes()>>"
+            ],
+            "references": [           
+#                "<<ua_derived_references()>>", 
+                '*Hierarchical References:*', 
+                '<<ua_hierarchical_references()>>',
+                '*Non-Hierarchical References:*', 
+                '<<ua_non_hierarchical_references()>>'
+            ],
+        },
+    },
     "test": {
         "grid": "simple",
         "layout": {
@@ -34,7 +55,7 @@ LAYOUTS = {
             "head": [
                 '<<meta("type_name")>>: **<<meta("title")>>** '
             ],
-            "meta": ["<<ua_attributes()>>", "<<ua_references()>>"],
+            "meta": ["<<ua_attributes()>>", "<<ua_hierarchical_references()>>"],
         },
     },
     "clean_l": {"grid": "simple_side_left", "layout": LAYOUT_COMMON_SIDE},

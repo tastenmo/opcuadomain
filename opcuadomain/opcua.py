@@ -1,4 +1,7 @@
 from typing import Any, Dict, List
+
+import re
+
 from sphinx.application import Sphinx
 
 from sphinx.domains import Domain, Index
@@ -10,11 +13,18 @@ from opcuadomain.logging import get_logger
 
 from opcuadomain.defaults import LAYOUTS
 
+
+from directives.uaimport import UAImportDirective
+from opcuadomain.directives.uanode import UANodeDirective
+
 from directives.uavariable import UAVariableDirective
 from directives.uaobject import UAObjectDirective
-from directives.uaimport import UAImportDirective
+
 from indices.uavariablesindex import UAVariableIndex
 from indices.uareferencesindex import UAReferenceIndex
+
+from asyncua.ua.object_ids import ObjectIds, ObjectIdNames
+
 from uanode import process_ua_nodes
 
 class OpcuaDomain(Domain):
@@ -26,8 +36,7 @@ class OpcuaDomain(Domain):
         'ref': XRefRole(),
     }
     directives = {
-        'uavariable': UAVariableDirective,
-        'uaobject': UAObjectDirective,
+        'uanode': UANodeDirective,
         'uaimport': UAImportDirective,
 
     }
@@ -88,12 +97,47 @@ class OpcuaDomain(Domain):
                 return uanode
         return None
     
-    def find_uanode(self, browse_name, node_type):
+    def find_uanode_by_name(self, browse_name, node_type):
         """Find a UANode by browsename."""
         for uanode in self.data['UANodes']:
             if uanode.browsename == browse_name and uanode.nodetype == node_type:
                 return uanode
         return None
+    
+    def find_uanode_by_id(self, node_id):
+        """Find a UANode by browsename."""
+        for uanode in self.data['UANodes']:
+            if uanode.nodeid == node_id:
+                return uanode
+        return None
+    
+    def find_child_nodes(self, parent_id):
+        result = []
+        """Find a UANode by browsename."""
+        for uanode in self.data['UANodes']:
+            if uanode.parent == parent_id:
+                result.append(uanode)
+        return result
+    
+    def get_target_name(self, target):
+        m = re.match(r'i=(\d+)', target)
+
+        if m:
+            if int(m.group(1)) in ObjectIdNames:
+                return ObjectIdNames[int(m.group(1))]
+            
+        for alias in self.data['UAAliases']:
+            if self.data['UAAliases'][alias] == target:
+                return alias
+            
+        node = self.find_uanode_by_id(target)
+        if node:
+            return node.browsename
+        
+        return target
+
+
+
     
 
 

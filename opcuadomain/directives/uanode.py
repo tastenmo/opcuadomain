@@ -24,11 +24,11 @@ from opcuadomain.logging import get_logger
 
 logger = get_logger(__name__)
 
-class UAObjectDirective(SphinxDirective):
+class UANodeDirective(SphinxDirective):
     """A custom directive that describes a OPC-UA object."""
 
-    has_content = False
-    required_arguments = 1
+    has_content = True
+    required_arguments = 2
     option_spec = OPCUA_DEFAULT_OPTIONS
 
     final_argument_whitespace = True
@@ -54,15 +54,15 @@ class UAObjectDirective(SphinxDirective):
 
         opcua = self.env.get_domain('opcua')
 
-        ua_node = opcua.find_uanode_by_name(self.arguments[0], "UAObject")
+        ua_node = opcua.find_uanode_by_name(self.arguments[0], self.arguments[1])
 
         if ua_node is None:
-            raise ReferenceError(f"Could not find UAObject {self.arguments[0]}")
+            raise ReferenceError(f"Could not find {self.arguments[1]} {self.arguments[0]}")
         
         hide = "hide" in self.options
+        content = "\n".join(self.content)
         style = self.options.get("style")
         layout = self.options.get("layout", "")
-
 
         ua_nodes = add_uanode(
             env.app,
@@ -70,6 +70,7 @@ class UAObjectDirective(SphinxDirective):
             ua_node,
             self.docname,
             self.lineno,
+            content=content,
             hide=hide,
             style=style,
             layout=layout,
